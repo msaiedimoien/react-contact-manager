@@ -1,4 +1,5 @@
 import {PURPLE} from "../../helpers/colors";
+import React from "react";
 
 const SearchContact = () => {
     return (
