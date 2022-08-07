@@ -1,7 +1,6 @@
-import {useState} from 'react';
+import React, {useState} from 'react';
 import './App.css';
-import Navbar from "./components/Navbar";
-import Contacts from "./components/contact/Contacts";
+import {AddContact, EditContact, ViewContact, Contact, Contacts, Navbar} from "./components";
 
 const App = () => {
 
