@@ -1,7 +1,7 @@
 import {CURRENTLINE, CYAN, ORANGE, PURPLE, RED} from "../../helpers/colors";
 import React from "react";
 
-const Contact = () => {
+const Contact = ({contact}) => {
     return(
         <div className='col-md-6'>
             <div style={{backgroundColor: CURRENTLINE}}
@@ -10,8 +10,8 @@ const Contact = () => {
                     <div className='row align-items-center d-flex justify-content-around'>
                         <div className='col-sm-4 col-md-4'>
                             <img
-                                src="https://via.placeholder.com/150"
-                                alt=""
+                                src={contact.photo}
+                                alt={contact.fullname}
                                 style={{border: `1px solid ${PURPLE}`}}
                                 className='img-fluid rounded'
                             />
@@ -21,21 +21,21 @@ const Contact = () => {
                                 <li className='list-group-item list-group-item-dark'>
                                     نام و نام خانوادگی: {' '}
                                     <span className='fw-bold'>
-                                                    مصطفی سعیدی
+                                                    {contact.fullname}
                                                 </span>
                                 </li>
 
                                 <li className='list-group-item list-group-item-dark'>
                                     شماره موبایل: {' '}
                                     <span className='fw-bold'>
-                                                    09029002000
+                                                    {contact.mobile}
                                                 </span>
                                 </li>
 
                                 <li className='list-group-item list-group-item-dark'>
                                     آدرس ایمیل: {' '}
                                     <span className='fw-bold'>
-                                                    msaiedimoien@yahoo.com
+                                        {contact.email}
                                                 </span>
                                 </li>
                             </ul>
