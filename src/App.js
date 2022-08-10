@@ -3,6 +3,7 @@ import './App.css';
 import {Routes, Route, Navigate} from 'react-router-dom';
 import axios from "axios";
 import {AddContact, EditContact , Contact, Contacts, Navbar} from "./components";
+import {getAllContacts, getAllGroups} from './services/contactService';
 
 const App = () => {
 
@@ -15,8 +16,9 @@ const App = () => {
             try {
                 setLoading(true);
 
-                const {data: contactsData} = await axios.get("http://localhost:9000/contacts");
-                const {data: groupsData} = await axios.get("http://localhost:9000/groups");
+                const {data: contactsData} = await getAllContacts();
+                const {data: groupsData} = await getAllGroups();
+
                 setContacts(contactsData);
                 setGroups(groupsData);
 
