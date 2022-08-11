@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import './App.css';
 import {Routes, Route, Navigate, useNavigate} from 'react-router-dom';
 import {AddContact, EditContact, Contacts, Navbar, ViewContact} from "./components";
-import {createContact, getAllContacts, getAllGroups, deleteContact } from './services/contactService';
+import {createContact, getAllContacts, getAllGroups, deleteContact, getContact} from './services/contactService';
 import { confirmAlert } from 'react-confirm-alert';
 import {COMMENT, CURRENTLINE, FOREGROUND, PURPLE, YELLOW} from "./helpers/colors";
 import button from "bootstrap/js/src/button";
@@ -12,6 +12,7 @@ const App = () => {
     const [loading, setLoading] = useState(false);
     const [forceRender, setForceRender] = useState(false);
     const [contacts, setContacts] = useState([]);
+    const [contactsFiltered, setContactsFiltered] = useState([]);
     const [groups, setGroups] = useState([]);
     const [contact, setContact] = useState({
         fullname: "",
@@ -21,6 +22,7 @@ const App = () => {
         job: "",
         group: ""
     });
+    const [query, setQuery] =useState({text: ""});
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -32,6 +34,7 @@ const App = () => {
                 const {data: groupsData} = await getAllGroups();
 
                 setContacts(contactsData);
+                setContactsFiltered(contactsData);
                 setGroups(groupsData);
 
                 setLoading(false);
@@ -51,6 +54,7 @@ const App = () => {
 
                 const {data: contactsData} = await getAllContacts();
                 setContacts(contactsData);
+                setContactsFiltered(contactsData);
                 setLoading(false);
             } catch (err) {
                 console.log(err.message);
@@ -141,14 +145,24 @@ const App = () => {
         }
     }
 
+    const contactSearch = (event) => {
+        setQuery({...query, text: event.target.value});
+        const allContacts = contacts.filter((c) => {
+            const allContacts = c.fullname
+                .toLowerCase()
+                .includes(event.target.value.toLowerCase());
+        })
+        setContactsFiltered(allContacts);
+    }
+
     return (
         <div className="App">
-            <Navbar/>
+            <Navbar query={query} search={contactSearch}/>
             <Routes>
                 <Route path='/' element={<Navigate to='/contacts'/>}/>
                 <Route
                     path='/contacts'
-                    element={<Contacts contacts={contacts} loading={loading} confirmDelete={confirm}/>}
+                    element={<Contacts contacts={contactsFiltered} loading={loading} confirmDelete={confirm}/>}
                 />
                 <Route
                     path='/contacts/add'
