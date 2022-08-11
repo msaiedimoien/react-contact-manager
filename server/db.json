@@ -2,7 +2,7 @@
   "contacts": [
     {
       "fullname": [
-        "سجاد مدائنی1"
+        "سجاد مدائنی"
       ],
       "photo": "https://toplearn.com/img/user/teachers/15633_2402cc6d-1d17-6a22-e6cc-39e3248f13a4_%D8%A7%DB%8C%D9%85%D8%A7%D9%86_%D9%85%D8%AF%D8%A7%D8%A6%D9%86%DB%8C.jpg",
       "mobile": "09121112425",
@@ -12,7 +12,9 @@
       "id": 1
     },
     {
-      "fullname": "مصطفی سعیدی معین",
+      "fullname": [
+        "مصطفی معین"
+      ],
       "photo": "https://toplearn.com/img/user/teachers/950_bd024fca-c2f2-81a2-1dab-39f04887a948_%D8%AD%D8%B3%DB%8C%D9%86_%D8%AC%D8%A7%D8%A8%D8%B1%DB%8C.jpeg",
       "mobile": "09029002029",
       "email": "msaiedimoien@yahoo.com",
@@ -21,33 +23,15 @@
       "id": 2
     },
     {
-      "fullname": "جواد غلامی",
-      "photo": "https://toplearn.com/img/user/teachers/25033_1593aba2-5cb5-6add-a31f-39e35253dd2a_%DB%8C%D9%88%D9%86%D8%B3_%D9%82%D8%B1%D8%A8%D8%A7%D9%86%DB%8C.jpg",
-      "mobile": [
-        "09155245200"
+      "fullname": [
+        "سینا سعیدی"
       ],
-      "email": "HesamiM3@mums.ac.ir",
-      "job": "برنامه نویس فول",
-      "group": "2",
-      "id": 3
-    },
-    {
-      "fullname": "سینا سعیدی معین",
       "photo": "https://toplearn.com/img/user/teachers/14019_c46e09e4-a02f-3da3-3831-39f33705d550_%D9%81%D8%B1%D8%A8%D8%AF_%D8%B9%D9%84%DB%8C%20%D8%AE%D8%A7%D9%86%DB%8C.jpeg",
       "mobile": "09914384246",
       "email": "saeidiM2@mums.ac.ir",
       "job": "مدرس کامپیوتر",
       "group": "4",
       "id": 4
-    },
-    {
-      "fullname": "هانا سعیدی",
-      "photo": "https://toplearn.com/img/user/teachers/3554_fd8e376b-d40c-98bc-366b-39ef7534b8d6_%D8%B3%D8%B9%DB%8C%D8%AF_%D8%B9%D8%B3%DA%AF%D8%B1%DB%8C.jpg",
-      "mobile": "09354431211",
-      "email": "younes.gh@chmail.ir",
-      "job": "گرافیست",
-      "group": "2",
-      "id": 5
     }
   ],
   "groups": [

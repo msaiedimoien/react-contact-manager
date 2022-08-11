@@ -2,7 +2,10 @@ import React, {useState, useEffect} from 'react';
 import './App.css';
 import {Routes, Route, Navigate, useNavigate} from 'react-router-dom';
 import {AddContact, EditContact, Contacts, Navbar, ViewContact} from "./components";
-import {createContact, getAllContacts, getAllGroups} from './services/contactService';
+import {createContact, getAllContacts, getAllGroups, deleteContact } from './services/contactService';
+import { confirmAlert } from 'react-confirm-alert';
+import {COMMENT, CURRENTLINE, FOREGROUND, PURPLE, YELLOW} from "./helpers/colors";
+import button from "bootstrap/js/src/button";
 
 const App = () => {
 
@@ -41,7 +44,7 @@ const App = () => {
         fetchData();
     }, []);
 
-    useEffect(()=>{
+    useEffect(() => {
         const fetchData = async () => {
             try {
                 setLoading(true);
@@ -70,12 +73,70 @@ const App = () => {
         try {
             const {status} = await createContact(contact);
 
-            if(status === 201){
+            if (status === 201) {
                 setContact({});
                 setForceRender(!forceRender);
                 navigate("/contacts");
             }
+        } catch (err) {
+            console.log(err.message);
+        }
+    }
+
+    const confirm =(contactId, contactFullname)=> {
+        confirmAlert({
+            customUI: ({onClose}) => {
+                return (
+                    <div dir="rtl" style={{
+                        backgroundColor: CURRENTLINE,
+                        border: `1px solid ${PURPLE}`,
+                        borderRadius: "1rem",
+                    }}
+                         className="p-4"
+                    >
+                        <h4 style={{color: YELLOW}}>پاک کردن مخاطب</h4>
+                        <br/>
+                        <p style={{color: FOREGROUND}}>
+                            مطمینی که میخوای مخاطب {contactFullname} رو پاک کنی؟
+                        </p>
+                        <div className='d-flex flex-row-reverse'>
+                            <button
+                                onClick={onClose}
+                                className="btn"
+                                style={{backgroundColor: COMMENT}}
+                            >
+                                انصراف
+                            </button>
+
+                            <button
+                                onClick={() => {
+                                    removeContact(contactId);
+                                    onClose();
+                                }}
+                                className="btn mx-2"
+                                style={{backgroundColor: PURPLE}}
+                            >
+                                مطمین هستم
+                            </button>
+                        </div>
+                    </div>
+                )
+            }
+        })
+    }
+
+    const removeContact = async (contactId) => {
+        try{
+            setLoading(true);
+            const response = await deleteContact(contactId);
+
+            if(response){
+                const {data: contactsData} = await getAllContacts();
+                setContacts(contactsData);
+                setLoading(false);
+            }
         }catch (err) {
+            setLoading(false);
             console.log(err.message);
         }
     }
@@ -87,7 +148,7 @@ const App = () => {
                 <Route path='/' element={<Navigate to='/contacts'/>}/>
                 <Route
                     path='/contacts'
-                    element={<Contacts contacts={contacts} loading={loading}/>}
+                    element={<Contacts contacts={contacts} loading={loading} confirmDelete={confirm}/>}
                 />
                 <Route
                     path='/contacts/add'
@@ -99,7 +160,12 @@ const App = () => {
                         setContactInfo={setContactInfo}
                     />}/>
                 <Route path='/contacts/:contactId' element={<ViewContact/>}/>
-                <Route path='/contacts/edit/:contactId' element={<EditContact/>}/>
+                <Route
+                    path='/contacts/edit/:contactId'
+                    element={<EditContact
+                        forceRender={forceRender}
+                        setForceRender={setForceRender}/>}
+                />
             </Routes>
         </div>
     );
