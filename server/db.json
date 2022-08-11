@@ -1,7 +1,9 @@
 {
   "contacts": [
     {
-      "fullname": "سجاد مدائنی",
+      "fullname": [
+        "سجاد مدائنی1"
+      ],
       "photo": "https://toplearn.com/img/user/teachers/15633_2402cc6d-1d17-6a22-e6cc-39e3248f13a4_%D8%A7%DB%8C%D9%85%D8%A7%D9%86_%D9%85%D8%AF%D8%A7%D8%A6%D9%86%DB%8C.jpg",
       "mobile": "09121112425",
       "email": "iman@madaeny.com",
@@ -21,7 +23,9 @@
     {
       "fullname": "جواد غلامی",
       "photo": "https://toplearn.com/img/user/teachers/25033_1593aba2-5cb5-6add-a31f-39e35253dd2a_%DB%8C%D9%88%D9%86%D8%B3_%D9%82%D8%B1%D8%A8%D8%A7%D9%86%DB%8C.jpg",
-      "mobile": "09155245262",
+      "mobile": [
+        "09155245200"
+      ],
       "email": "HesamiM3@mums.ac.ir",
       "job": "برنامه نویس فول",
       "group": "2",
