@@ -1,12 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import './App.css';
 import {Routes, Route, Navigate, useNavigate} from 'react-router-dom';
-import {AddContact, EditContact , Contact, Contacts, Navbar} from "./components";
+import {AddContact, EditContact, Contacts, Navbar, ViewContact} from "./components";
 import {createContact, getAllContacts, getAllGroups} from './services/contactService';
 
 const App = () => {
 
     const [loading, setLoading] = useState(false);
+    const [forceRender, setForceRender] = useState(false);
     const [contacts, setContacts] = useState([]);
     const [groups, setGroups] = useState([]);
     const [contact, setContact] = useState({
@@ -38,7 +39,24 @@ const App = () => {
         }
 
         fetchData();
-    }, [])
+    }, []);
+
+    useEffect(()=>{
+        const fetchData = async () => {
+            try {
+                setLoading(true);
+
+                const {data: contactsData} = await getAllContacts();
+                setContacts(contactsData);
+                setLoading(false);
+            } catch (err) {
+                console.log(err.message);
+                setLoading(false);
+            }
+        }
+
+        fetchData();
+    }, [forceRender]);
 
     const setContactInfo = (event) => {
         setContact({
@@ -54,6 +72,7 @@ const App = () => {
 
             if(status === 201){
                 setContact({});
+                setForceRender(!forceRender);
                 navigate("/contacts");
             }
         }catch (err) {
@@ -79,7 +98,7 @@ const App = () => {
                         createContactForm={createContactForm}
                         setContactInfo={setContactInfo}
                     />}/>
-                <Route path='/contacts/:contactId' element={<Contact/>}/>
+                <Route path='/contacts/:contactId' element={<ViewContact/>}/>
                 <Route path='/contacts/edit/:contactId' element={<EditContact/>}/>
             </Routes>
         </div>
