@@ -1,78 +1,66 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import {ContactContext} from "../../context/contactContext";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import {
     getContact,
-    getAllGroups,
     updateContact,
 } from "../../services/contactService";
 import { Spinner } from "../";
 import { COMMENT, ORANGE, PURPLE } from "../../helpers/colors";
 
-const EditContact = ({forceRender, setForceRender}) => {
+const EditContact = () => {
     const { contactId } = useParams();
     const navigate = useNavigate();
 
-    const [state, setState] = useState({
-        loading: false,
-        contact: {
-            fullname: "",
-            photo: "",
-            mobile: "",
-            email: "",
-            job: "",
-            group: "",
-        },
-        groups: [],
-    });
+    const {loading, setLoading, contacts, setContacts, setFilteredContacts, groups} = useContext(ContactContext);
+    const [contact, setContact] = useState({});
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                setState({ ...state, loading: true });
-                const { data: contactData } = await getContact(contactId);
-                const { data: groupsData } = await getAllGroups();
-                setState({
-                    ...state,
-                    loading: false,
-                    contact: contactData,
-                    groups: groupsData,
-                });
+                setLoading(true);
+                const {data: contactData} = await getContact(contactId);
+
+                setContact(contactData);
+                setLoading(false);
             } catch (err) {
                 console.log(err);
-                setState({ ...state, loading: false });
+                setLoading(false);
             }
         };
 
         fetchData();
     }, []);
 
-    const setContactInfo = (event) => {
-        setState({
-            ...state,
-            contact: {
-                ...state.contact,
-                [event.target.name]: [event.target.value],
-            },
+    const onContactChange = (event) => {
+        setContact({
+            ...contact,
+            [event.target.name]: event.target.value,
         });
     };
 
     const submitForm = async (event) => {
         event.preventDefault();
         try {
-            setState({ ...state, loading: true });
-            const { data } = await updateContact(state.contact, contactId);
-            setState({ ...state, loading: false });
-            if (data) {
-                setForceRender(!forceRender);
+            setLoading(true);
+            const { data, status } = await updateContact(contact, contactId);
+
+            setLoading(false);
+            if (status === 200) {
+
+                const allContacts = [...contacts];
+                const contactIndex = allContacts.findIndex(c => c.id === parseInt(contactId));
+                allContacts[contactIndex] = {...data};
+                setContacts(allContacts);
+                setFilteredContacts(allContacts);
+
                 navigate("/contacts");
             }
         } catch (err) {
             console.log(err);
-            setState({ ...state, loading: false });
+            setLoading(false);
         }
     };
-
-    const { loading, contact, groups } = state;
 
     return (
         <>
@@ -102,7 +90,7 @@ const EditContact = ({forceRender, setForceRender}) => {
                                                 type="text"
                                                 className="form-control"
                                                 value={contact.fullname}
-                                                onChange={setContactInfo}
+                                                onChange={onContactChange}
                                                 required={true}
                                                 placeholder="نام و نام خانوادگی"
                                             />
@@ -112,7 +100,7 @@ const EditContact = ({forceRender, setForceRender}) => {
                                                 name="photo"
                                                 type="text"
                                                 value={contact.photo}
-                                                onChange={setContactInfo}
+                                                onChange={onContactChange}
                                                 className="form-control"
                                                 required={true}
                                                 placeholder="آدرس تصویر"
@@ -124,7 +112,7 @@ const EditContact = ({forceRender, setForceRender}) => {
                                                 type="number"
                                                 className="form-control"
                                                 value={contact.mobile}
-                                                onChange={setContactInfo}
+                                                onChange={onContactChange}
                                                 required={true}
                                                 placeholder="شماره موبایل"
                                             />
@@ -135,7 +123,7 @@ const EditContact = ({forceRender, setForceRender}) => {
                                                 type="email"
                                                 className="form-control"
                                                 value={contact.email}
-                                                onChange={setContactInfo}
+                                                onChange={onContactChange}
                                                 required={true}
                                                 placeholder="آدرس ایمیل"
                                             />
@@ -146,7 +134,7 @@ const EditContact = ({forceRender, setForceRender}) => {
                                                 type="text"
                                                 className="form-control"
                                                 value={contact.job}
-                                                onChange={setContactInfo}
+                                                onChange={onContactChange}
                                                 required={true}
                                                 placeholder="شغل"
                                             />
@@ -155,7 +143,7 @@ const EditContact = ({forceRender, setForceRender}) => {
                                             <select
                                                 name="group"
                                                 value={contact.group}
-                                                onChange={setContactInfo}
+                                                onChange={onContactChange}
                                                 required={true}
                                                 className="form-control"
                                             >

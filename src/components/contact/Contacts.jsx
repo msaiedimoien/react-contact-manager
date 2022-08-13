@@ -7,7 +7,7 @@ import Contact from "./Contact";
 import Spinner from "../Spinner";
 
 const Contacts = () => {
-    const {loading, contacts, deleteContact} = useContext(ContactContext);
+    const {loading, filteredContacts, deleteContact} = useContext(ContactContext);
     return (
         <>
             <section className='container'>
@@ -30,8 +30,8 @@ const Contacts = () => {
                     <section className='container'>
                         <div className='row'>
                             {
-                                contacts.length > 0
-                                    ? contacts.map(c => (
+                                filteredContacts.length > 0
+                                    ? filteredContacts.map(c => (
                                         <Contact
                                             key={c.id}
                                             contact={c}

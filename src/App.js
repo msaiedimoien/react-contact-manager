@@ -111,16 +111,25 @@ const App = () => {
     }
 
     const removeContact = async (contactId) => {
+
+        const allContacts = [...contacts];
         try {
             setLoading(true);
-            const response = await deleteContact(contactId);
 
-            if (response) {
-                const {data: contactsData} = await getAllContacts();
-                setContacts(contactsData);
-                setLoading(false);
+            const updatedContacts = contacts.filter(c => c.id !== contactId);
+            setContacts(updatedContacts);
+            setFilteredContacts(updatedContacts);
+
+            const {status} = await deleteContact(contactId);
+
+            setLoading(false);
+            if (status !== 200) {
+                setContacts(allContacts);
+                setFilteredContacts(allContacts);
             }
         } catch (err) {
+            setContacts(allContacts);
+            setFilteredContacts(allContacts);
             setLoading(false);
             console.log(err.message);
         }
@@ -140,7 +149,8 @@ const App = () => {
         <ContactContext.Provider value={{
             loading, setLoading,
             contact, setContact, contactQuery,
-            contacts, filteredContacts,
+            contacts, setContacts,
+            filteredContacts, setFilteredContacts,
             groups,
             onContactChange,
             deleteContact: confirmDelete,
@@ -150,14 +160,11 @@ const App = () => {
             <div className="App">
                 <Navbar/>
                 <Routes>
-                    <Route path='/' element={<Navigate to='/contacts'/>}/>
-                    <Route path='/contacts' element={<Contacts/>}/>
-                    <Route path='/contacts/add' element={<AddContact/>}/>
-                    <Route path='/contacts/:contactId' element={<ViewContact/>}/>
-                    <Route
-                        path='/contacts/edit/:contactId'
-                        element={<EditContact/>}
-                    />
+                    <Route path='/' element={<Navigate to='/contacts'/>} />
+                    <Route path='/contacts' element={<Contacts/>} />
+                    <Route path='/contacts/add' element={<AddContact/>} />
+                    <Route path='/contacts/:contactId' element={<ViewContact/>} />
+                    <Route path='/contacts/edit/:contactId' element={<EditContact/>} />
                 </Routes>
             </div>
         </ContactContext.Provider>

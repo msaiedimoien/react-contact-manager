@@ -1,9 +1,7 @@
 {
   "contacts": [
     {
-      "fullname": [
-        "سجاد مدائنی"
-      ],
+      "fullname": "سجاد مدائنی",
       "photo": "https://toplearn.com/img/user/teachers/15633_2402cc6d-1d17-6a22-e6cc-39e3248f13a4_%D8%A7%DB%8C%D9%85%D8%A7%D9%86_%D9%85%D8%AF%D8%A7%D8%A6%D9%86%DB%8C.jpg",
       "mobile": "09121112425",
       "email": "iman@madaeny.com",
@@ -21,17 +19,6 @@
       "job": "برنامه نویس فول استک",
       "group": "1",
       "id": 2
-    },
-    {
-      "fullname": [
-        "سینا سعیدی"
-      ],
-      "photo": "https://toplearn.com/img/user/teachers/14019_c46e09e4-a02f-3da3-3831-39f33705d550_%D9%81%D8%B1%D8%A8%D8%AF_%D8%B9%D9%84%DB%8C%20%D8%AE%D8%A7%D9%86%DB%8C.jpeg",
-      "mobile": "09914384246",
-      "email": "saeidiM2@mums.ac.ir",
-      "job": "مدرس کامپیوتر",
-      "group": "4",
-      "id": 4
     }
   ],
   "groups": [
