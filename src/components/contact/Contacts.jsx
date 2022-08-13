@@ -31,13 +31,13 @@ const Contacts = () => {
                         <div className='row'>
                             {
                                 filteredContacts.length > 0
-                                    ? filteredContacts.map(c => (
+                                    ? (filteredContacts.map(c => (
                                         <Contact
                                             key={c.id}
                                             contact={c}
                                             deleteContact={() => deleteContact(c.id, c.fullname)}
                                         />
-                                    )) :
+                                    ))) :
                                     (
                                         <div className='text-center py-5'
                                              style={{backgroundColor: CURRENTLINE}}>

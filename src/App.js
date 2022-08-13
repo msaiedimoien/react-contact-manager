@@ -111,7 +111,15 @@ const App = () => {
     }
 
     const removeContact = async (contactId) => {
+        /*
+         * NOTE
+         * 1- forceRender -> setForceRender
+         * 2- Server Request
+         * 3- Delete Local State
+         * 4- Delete State Before Server Request
+         */
 
+        // Contacts Copy
         const allContacts = [...contacts];
         try {
             setLoading(true);
@@ -120,6 +128,7 @@ const App = () => {
             setContacts(updatedContacts);
             setFilteredContacts(updatedContacts);
 
+            // Sending delete request to server
             const {status} = await deleteContact(contactId);
 
             setLoading(false);
@@ -141,7 +150,8 @@ const App = () => {
             return contact.fullname
                 .toLowerCase()
                 .includes(event.target.value.toLowerCase());
-        })
+        });
+
         setFilteredContacts(allContacts);
     }
 

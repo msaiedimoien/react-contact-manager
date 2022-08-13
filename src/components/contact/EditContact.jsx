@@ -41,6 +41,14 @@ const EditContact = () => {
 
     const submitForm = async (event) => {
         event.preventDefault();
+
+        /*
+       * NOTE
+       * 1- forceRender -> setForceRender(true)
+       * 2- Send request server
+       * 3- Update local state
+       * 4- Update local state before sending request to server
+       */
         try {
             setLoading(true);
             const { data, status } = await updateContact(contact, contactId);
