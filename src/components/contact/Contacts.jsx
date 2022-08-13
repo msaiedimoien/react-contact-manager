@@ -1,10 +1,13 @@
+import {useContext} from "react";
+import {ContactContext} from "../../context/contactContext";
 import {Link} from "react-router-dom";
 import React from "react";
 import {CURRENTLINE, ORANGE, PINK} from "../../helpers/colors";
 import Contact from "./Contact";
 import Spinner from "../Spinner";
 
-const Contacts = ({contacts, loading, confirmDelete}) => {
+const Contacts = () => {
+    const {loading, contacts, deleteContact} = useContext(ContactContext);
     return (
         <>
             <section className='container'>
@@ -32,7 +35,7 @@ const Contacts = ({contacts, loading, confirmDelete}) => {
                                         <Contact
                                             key={c.id}
                                             contact={c}
-                                            confirmDelete={() => confirmDelete(c.id, c.fullname)}
+                                            deleteContact={() => deleteContact(c.id, c.fullname)}
                                         />
                                     )) :
                                     (

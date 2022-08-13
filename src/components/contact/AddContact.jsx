@@ -1,19 +1,15 @@
+import {useContext} from "react";
+import {ContactContext} from "../../context/contactContext";
 import { Link } from "react-router-dom";
-
 import { Spinner } from "../";
 import { COMMENT, GREEN, PURPLE } from "../../helpers/colors";
 
-const AddContact = ({
-                        loading,
-                        contact,
-                        setContactInfo,
-                        groups,
-                        createContactForm,
-                    }) => {
+const AddContact = () => {
+    const {loading, contact, groups, createContact, onContactChange} = useContext(ContactContext);
     return (
         <>
             {loading ? (
-                <Spinner />
+                <Spinner/>
             ) : (
                 <>
                     <section className="p-3">
@@ -33,22 +29,22 @@ const AddContact = ({
                                 <div className="col">
                                     <p
                                         className="h4 fw-bold text-center"
-                                        style={{ color: GREEN }}
+                                        style={{color: GREEN}}
                                     >
                                         ساخت مخاطب جدید
                                     </p>
                                 </div>
                             </div>
-                            <hr style={{ backgroundColor: GREEN }} />
+                            <hr style={{backgroundColor: GREEN}}/>
                             <div className="row mt-5">
                                 <div className="col-md-4">
-                                    <form onSubmit={createContactForm}>
+                                    <form onSubmit={createContact}>
                                         <div className="mb-2">
                                             <input
                                                 name="fullname"
                                                 type="text"
                                                 value={contact.fullname}
-                                                onChange={setContactInfo}
+                                                onChange={onContactChange}
                                                 className="form-control"
                                                 placeholder="نام و نام خانوادگی"
                                                 required={true}
@@ -59,7 +55,7 @@ const AddContact = ({
                                                 name="photo"
                                                 type="text"
                                                 value={contact.photo}
-                                                onChange={setContactInfo}
+                                                onChange={onContactChange}
                                                 className="form-control"
                                                 required={true}
                                                 placeholder="آدرس تصویر"
@@ -70,7 +66,7 @@ const AddContact = ({
                                                 name="mobile"
                                                 type="number"
                                                 value={contact.mobile}
-                                                onChange={setContactInfo}
+                                                onChange={onContactChange}
                                                 className="form-control"
                                                 required={true}
                                                 placeholder="شماره موبایل"
@@ -81,7 +77,7 @@ const AddContact = ({
                                                 type="email"
                                                 name="email"
                                                 value={contact.email}
-                                                onChange={setContactInfo}
+                                                onChange={onContactChange}
                                                 className="form-control"
                                                 required={true}
                                                 placeholder="آدرس ایمیل"
@@ -92,7 +88,7 @@ const AddContact = ({
                                                 type="text"
                                                 name="job"
                                                 value={contact.job}
-                                                onChange={setContactInfo}
+                                                onChange={onContactChange}
                                                 className="form-control"
                                                 required={true}
                                                 placeholder="شغل"
@@ -102,7 +98,7 @@ const AddContact = ({
                                             <select
                                                 name="group"
                                                 value={contact.group}
-                                                onChange={setContactInfo}
+                                                onChange={onContactChange}
                                                 required={true}
                                                 className="form-control"
                                             >
@@ -119,13 +115,13 @@ const AddContact = ({
                                             <input
                                                 type="submit"
                                                 className="btn"
-                                                style={{ backgroundColor: PURPLE }}
+                                                style={{backgroundColor: PURPLE}}
                                                 value="ساخت مخاطب"
                                             />
                                             <Link
                                                 to={"/contacts"}
                                                 className="btn mx-2"
-                                                style={{ backgroundColor: COMMENT }}
+                                                style={{backgroundColor: COMMENT}}
                                             >
                                                 انصراف
                                             </Link>
