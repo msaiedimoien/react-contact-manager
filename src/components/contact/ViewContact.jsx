@@ -1,18 +1,18 @@
 import { useState, useEffect,useContext } from "react";
-import {ContactContext} from "../../context/contactContext";
 import { Link, useParams } from "react-router-dom";
 
+import {ContactContext} from "../../context/contactContext";
 import { getContact, getGroup } from "../../services/contactService";
 import { Spinner } from "../";
 import { CURRENTLINE, CYAN, PURPLE } from "../../helpers/colors";
 
 const ViewContact = () => {
     const { contactId } = useParams();
+    const {loading, setLoading} = useContext(ContactContext);
     const [state, setState] = useState({
         contact: {},
         group: {},
     });
-    const {loading, setLoading} = useContext(ContactContext);
 
     useEffect(() => {
         const fetchData = async () => {

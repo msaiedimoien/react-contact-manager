@@ -1,7 +1,8 @@
 import {useContext} from "react";
-import {ContactContext} from "../../context/contactContext";
-import {Link} from "react-router-dom";
 import React from "react";
+import {Link} from "react-router-dom";
+
+import {ContactContext} from "../../context/contactContext";
 import {CURRENTLINE, ORANGE, PINK} from "../../helpers/colors";
 import Contact from "./Contact";
 import Spinner from "../Spinner";

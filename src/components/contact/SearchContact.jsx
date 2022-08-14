@@ -1,6 +1,7 @@
-import {PURPLE} from "../../helpers/colors";
 import React from "react";
 import {useContext} from "react";
+
+import {PURPLE} from "../../helpers/colors";
 import {ContactContext} from "../../context/contactContext";
 
 const SearchContact = () => {

@@ -1,10 +1,8 @@
 import { useEffect, useState, useContext } from "react";
-import {ContactContext} from "../../context/contactContext";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import {
-    getContact,
-    updateContact,
-} from "../../services/contactService";
+
+import {ContactContext} from "../../context/contactContext";
+import { getContact, updateContact } from "../../services/contactService";
 import { Spinner } from "../";
 import { COMMENT, ORANGE, PURPLE } from "../../helpers/colors";
 

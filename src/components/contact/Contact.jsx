@@ -1,6 +1,7 @@
-import {CURRENTLINE, CYAN, ORANGE, PURPLE, RED} from "../../helpers/colors";
 import React from "react";
 import {Link} from "react-router-dom";
+
+import {CURRENTLINE, CYAN, ORANGE, PURPLE, RED} from "../../helpers/colors";
 
 const Contact = ({contact, deleteContact}) => {
     return(

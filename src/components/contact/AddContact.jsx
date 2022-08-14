@@ -1,6 +1,7 @@
 import {useContext} from "react";
-import {ContactContext} from "../../context/contactContext";
 import { Link } from "react-router-dom";
+
+import {ContactContext} from "../../context/contactContext";
 import { Spinner } from "../";
 import { COMMENT, GREEN, PURPLE } from "../../helpers/colors";
 

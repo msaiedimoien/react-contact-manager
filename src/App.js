@@ -1,9 +1,10 @@
-import React, {useState, useEffect} from 'react';
 import './App.css';
+import React, {useState, useEffect} from 'react';
+import { confirmAlert } from 'react-confirm-alert';
 import {Routes, Route, Navigate, useNavigate} from 'react-router-dom';
+
 import {AddContact, EditContact, Contacts, Navbar, ViewContact} from "./components";
 import {createContact, getAllContacts, getAllGroups, deleteContact} from './services/contactService';
-import { confirmAlert } from 'react-confirm-alert';
 import {ContactContext} from "./context/contactContext";
 import {COMMENT, CURRENTLINE, FOREGROUND, PURPLE, YELLOW} from "./helpers/colors";
 import button from "bootstrap/js/src/button";
