@@ -145,7 +145,7 @@ const App = () => {
     }
 
     const contactSearch = (event) => {
-        setContactQuery({...contactQuery, text: event.target.value});
+        setContactQuery({ ...contactQuery, text: event.target.value });
         const allContacts = contacts.filter((contact) => {
             return contact.fullname
                 .toLowerCase()
@@ -153,7 +153,7 @@ const App = () => {
         });
 
         setFilteredContacts(allContacts);
-    }
+    };
 
     return (
         <ContactContext.Provider value={{
