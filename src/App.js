@@ -2,6 +2,7 @@ import './App.css';
 import React, {useState, useEffect} from 'react';
 import { confirmAlert } from 'react-confirm-alert';
 import {Routes, Route, Navigate, useNavigate} from 'react-router-dom';
+import _ from 'lodash';
 
 import {AddContact, EditContact, Contacts, Navbar, ViewContact} from "./components";
 import {createContact, getAllContacts, getAllGroups, deleteContact} from './services/contactService';
@@ -16,7 +17,7 @@ const App = () => {
     const [filteredContacts, setFilteredContacts] = useState([]);
     const [groups, setGroups] = useState([]);
     const [contact, setContact] = useState({});
-    const [contactQuery, setContactQuery] = useState({text: ""});
+    // const [errors, setErrors] = useState([]);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -48,24 +49,27 @@ const App = () => {
         });
     };
 
-    const createContactForm = async (event) => {
-        event.preventDefault();
+    const createContactForm = async (values) => {
         try {
-            loading(true);
-            const {status, data} = await createContact(contact);
+            //loading(true);
+            // await contactSchema.validate(contact, {abortEarly: false});
+
+            const {status, data} = await createContact(values);
 
             if (status === 201) {
                 const allContacts = [...contacts, data];
                 setContacts(allContacts);
                 setFilteredContacts(allContacts);
 
-                setContact({});
-                loading((prevLoading) => !prevLoading);
+                // setContact({});
+                // setErrors([]);
+                //loading((prevLoading) => !prevLoading);
                 navigate("/contacts");
             }
         } catch (err) {
             console.log(err.message);
-            loading(false);
+            // setErrors(err.inner);
+            //loading(false);
         }
     }
 
@@ -145,21 +149,23 @@ const App = () => {
         }
     }
 
-    const contactSearch = (event) => {
-        setContactQuery({ ...contactQuery, text: event.target.value });
-        const allContacts = contacts.filter((contact) => {
-            return contact.fullname
-                .toLowerCase()
-                .includes(event.target.value.toLowerCase());
-        });
+    const contactSearch = _.debounce( (query) => {
+        if (!query) return setFilteredContacts(contacts);
 
-        setFilteredContacts(allContacts);
-    };
+        setFilteredContacts(
+            contacts.filter((contact) => {
+                return contact.fullname
+                    .toLowerCase()
+                    .includes(query.toLowerCase());
+            })
+        );
+    }, 1000);
 
     return (
         <ContactContext.Provider value={{
             loading, setLoading,
-            contact, setContact, contactQuery,
+            contact, setContact,
+            // contactQuery,
             contacts, setContacts,
             filteredContacts, setFilteredContacts,
             groups,
