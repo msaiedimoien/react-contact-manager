@@ -1,5 +1,7 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useContext } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import {useImmer} from "use-immer";
+import {toast} from "react-toastify";
 
 import {ContactContext} from "../../context/contactContext";
 import { getContact, updateContact } from "../../services/contactService";
@@ -15,12 +17,11 @@ const EditContact = () => {
     const {
         loading,
         setLoading,
-        contacts,
         setContacts,
         setFilteredContacts,
         groups
     } = useContext(ContactContext);
-    const [contact, setContact] = useState({});
+    const [contact, setContact] = useImmer({});
     const errorClassname = 'bg-danger bg-opacity-75 text-white rounded mt-2';
 
     useEffect(() => {
@@ -43,17 +44,23 @@ const EditContact = () => {
     const submitForm = async (values) => {
         try {
             setLoading(true);
-            const { data, status } = await updateContact(values, contactId);
+            const {data, status} = await updateContact(values, contactId);
 
             setLoading(false);
             if (status === 200) {
-
-                const allContacts = [...contacts];
-                const contactIndex = allContacts.findIndex(c => c.id === parseInt(contactId));
-                allContacts[contactIndex] = {...data};
-                setContacts(allContacts);
-                setFilteredContacts(allContacts);
-
+                toast.success("مخاطب با موفقیت ویرایش شد");
+                setContacts(draft => {
+                    const contactIndex = draft.findIndex(
+                        c => c.id === parseInt(contactId)
+                    );
+                    draft[contactIndex] = {...data};
+                });
+                setFilteredContacts(draft => {
+                    const contactIndex = draft.findIndex(
+                        c => c.id === parseInt(contactId)
+                    );
+                    draft[contactIndex] = {...data};
+                });
                 navigate("/contacts");
             }
         } catch (err) {
@@ -189,6 +196,7 @@ const EditContact = () => {
                                 <div className="col-md-4">
                                     <img
                                         src={contact.photo}
+                                        alt={contact.fullname}
                                         className="img-fluid rounded"
                                         style={{ border: `1px solid ${PURPLE}` }}
                                     />

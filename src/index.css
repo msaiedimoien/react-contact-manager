@@ -24,3 +24,7 @@ input[type='number']{
   color: #f8f8f4 !important;
   border-color: #bd93f9 !important;
 }
+
+.Toastify__toast-body {
+  font-family: "Vazir", tahoma !important;
+}

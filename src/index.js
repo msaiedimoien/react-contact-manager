@@ -4,11 +4,12 @@ import {BrowserRouter} from "react-router-dom";
 import './index.css';
 import App from './App';
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-      <BrowserRouter>
+      <BrowserRouter basename="react-contact-manager">
           <App />
       </BrowserRouter>
   </React.StrictMode>
