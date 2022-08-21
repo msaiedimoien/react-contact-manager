@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/react-contact-manager/static/css/main.4f842c83.css",
+    "main.js": "/react-contact-manager/static/js/main.0be74868.js",
+    "static/media/Spinner.gif": "/react-contact-manager/static/media/Spinner.5b35cef0ce49e2af8525.gif",
+    "static/media/no-found.gif": "/react-contact-manager/static/media/no-found.8a3fe9fd54d21c85d260.gif",
+    "static/media/man-taking-note.png": "/react-contact-manager/static/media/man-taking-note.578e1679689f39584d15.png",
+    "index.html": "/react-contact-manager/index.html",
+    "main.4f842c83.css.map": "/react-contact-manager/static/css/main.4f842c83.css.map",
+    "main.0be74868.js.map": "/react-contact-manager/static/js/main.0be74868.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4f842c83.css",
+    "static/js/main.0be74868.js"
+  ]
+}
